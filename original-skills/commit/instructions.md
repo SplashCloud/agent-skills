@@ -9,7 +9,7 @@
 3. 生成简洁、可检索的 commit message：主题行使用动词，必要时补充原因、影响、迁移和已执行的验证。
 4. 检查是否有敏感文件、明显临时文件或与任务无关的变更。发现问题时先停止并说明。
 5. 将确认属于当前任务的变更加入暂存区，并执行 `git commit`。不要声称未执行的测试。
-6. commit 成功后立即执行 `git push`，默认推送当前分支的已配置 upstream。
+6. commit 成功后立即执行 `git push origin <当前分支名>`，显式推送到 `origin`，不要只执行 `git push` 依赖本地 upstream 配置。
 7. 报告 commit hash、提交信息、推送结果和实际验证结果。
 
 ## Git 约束
@@ -17,8 +17,8 @@
 - 不修改用户未要求的代码，不重写历史，不使用 `git push --force`。
 - 不使用 `git commit --no-verify` 绕过 hooks；hook 失败必须保留错误。
 - 没有可提交变更时，不创建空 commit，说明仓库已经干净。
-- 没有 upstream 时，不猜测远端或分支；报告缺少 upstream，并给出 `git push -u <remote> <branch>` 解决命令。
-- commit 成功但 push 失败时，不重复 commit；保留 commit，先解释远端、认证、网络、分支保护或冲突原因。
+- 使用当前分支名执行 `git push origin <当前分支名>`；先通过 `git branch --show-current` 获取，不能把分支名写死。
+- 如果 `origin` 不存在或显式 push 失败，不重复 commit；保留 commit，先解释远端、认证、网络、分支保护或冲突原因。
 
 ## 错误处理
 

@@ -91,7 +91,7 @@
 ./install.sh --skill tldr --agent claude --scope global --force
 ```
 
-`commit` skill 会检查实际 diff，生成提交信息，执行 `git commit`，然后推送当前分支的 upstream。遇到检查、commit 或 push 错误时，会保留关键错误输出并说明失败阶段、原因和解决方案；不会使用 `git push --force` 或绕过 hooks。
+`commit` skill 会检查实际 diff，生成提交信息，执行 `git commit`，然后执行 `git push origin <当前分支名>` 显式推送到 `origin`。它会先通过 `git branch --show-current` 获取当前分支，不依赖 upstream 配置。遇到检查、commit 或 push 错误时，会保留关键错误输出并说明失败阶段、原因和解决方案；不会使用 `git push --force` 或绕过 hooks。
 
 原来的 `commit-message` skill 已更名为 `commit`。已有旧目录不会被自动删除，需要手动移除旧安装后重新安装：
 
